@@ -43,7 +43,8 @@ class ReqHandler(http.server.BaseHTTPRequestHandler):
                     found = lxml.etree.parse(io.BytesIO(USERS_XML.encode())).xpath(".//user[name/text()='%s']" % params["name"])
                     content += "<b>Surname:</b> %s%s" % (found[-1].find("surname").text if found else "-", HTML_POSTFIX)
                 elif "size" in params:
-                    start, _ = time.time(), "<br>".join("#" * int(params["size"]) for _ in range(int(params["size"])))
+                    limit = min(15,int(params["size"])
+                    start, _ = time.time(), "<br>".join("#" * limit) for _ in range(int(params["size"])))
                     content += "<b>Time required</b> (to 'resize image' to %dx%d): %.6f seconds%s" % (int(params["size"]), int(params["size"]), time.time() - start, HTML_POSTFIX)
                 elif "comment" in params or query == "comment=":
                     if "comment" in params:
